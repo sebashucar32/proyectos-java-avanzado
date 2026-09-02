@@ -1,0 +1,85 @@
+[ {
+  "isbn" : 1,
+  "titulo" : "El Principito",
+  "autor" : "Antoine de Saint-Exupéry",
+  "anio" : 2026,
+  "categoria" : "Aventura",
+  "estado" : "PRESTADO"
+}, {
+  "isbn" : 2,
+  "titulo" : "Maria la del barrio",
+  "autor" : "Jorge Isaac",
+  "anio" : 1976,
+  "categoria" : "Romance",
+  "estado" : "PRESTADO"
+}, {
+  "isbn" : 3,
+  "titulo" : "El coronelisimo",
+  "autor" : "Gabriel gacia marquez",
+  "anio" : 1981,
+  "categoria" : "Drama",
+  "estado" : "DISPONIBLE"
+}, {
+  "isbn" : 4,
+  "titulo" : "La Odisea",
+  "autor" : "Homero",
+  "anio" : 1979,
+  "categoria" : "Historia",
+  "estado" : "PRESTADO"
+}, {
+  "isbn" : 5,
+  "titulo" : "Cien años de soledad",
+  "autor" : "Gabriel García Márquez",
+  "anio" : 1967,
+  "categoria" : "Drama",
+  "estado" : "DISPONIBLE"
+}, {
+  "isbn" : 6,
+  "titulo" : "Don Quijote de la Mancha",
+  "autor" : "Miguel de Cervantes",
+  "anio" : 1605,
+  "categoria" : "Aventura",
+  "estado" : "PRESTADO"
+}, {
+  "isbn" : 7,
+  "titulo" : "Rayuela",
+  "autor" : "Julio Cortázar",
+  "anio" : 1963,
+  "categoria" : "Romance",
+  "estado" : "PRESTADO"
+}, {
+  "isbn" : 8,
+  "titulo" : "Ficciones",
+  "autor" : "Jorge Luis Borges",
+  "anio" : 1944,
+  "categoria" : "Historia",
+  "estado" : "DISPONIBLE"
+}, {
+  "isbn" : 9,
+  "titulo" : "Pedro Páramo",
+  "autor" : "Juan Rulfo",
+  "anio" : 1955,
+  "categoria" : "Drama",
+  "estado" : "DISPONIBLE"
+}, {
+  "isbn" : 10,
+  "titulo" : "La ciudad y los perros",
+  "autor" : "Mario Vargas Llosa",
+  "anio" : 1963,
+  "categoria" : "Aventura",
+  "estado" : "DISPONIBLE"
+}, {
+  "isbn" : 11,
+  "titulo" : "Crónica de una muerte anunciada",
+  "autor" : "Gabriel García Márquez",
+  "anio" : 1981,
+  "categoria" : "Drama",
+  "estado" : "DISPONIBLE"
+}, {
+  "isbn" : 12,
+  "titulo" : "La Ilíada",
+  "autor" : "Homero",
+  "anio" : 1985,
+  "categoria" : "Historia",
+  "estado" : "DISPONIBLE"
+} ]

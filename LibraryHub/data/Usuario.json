@@ -1,0 +1,13 @@
+[ {
+  "id" : 1,
+  "nombre" : "Sebastian Huertas Cardona",
+  "tipoUsuario" : "Profesor"
+}, {
+  "id" : 2,
+  "nombre" : "Yayi Isaac",
+  "tipoUsuario" : "Estudiante"
+}, {
+  "id" : 3,
+  "nombre" : "DaniEduSal",
+  "tipoUsuario" : "Profesor"
+} ]
