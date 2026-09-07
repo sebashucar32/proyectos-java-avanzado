@@ -24,6 +24,7 @@ public class MainMenu {
         while (!salir) {
             mostrarMenu();
             int opcion = teclado.nextInt();
+            teclado.nextLine();
 
             switch (opcion) {
                 case 1 -> libroMenu.iniciar();

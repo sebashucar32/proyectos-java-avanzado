@@ -1,11 +1,12 @@
 package org.example.controllers;
 
 import org.example.enums.EstadoLibro;
+import org.example.exception.LibroNoEncontrado;
 import org.example.models.Libro;
-import org.example.records.Multa;
 import org.example.service.LibroService;
 import org.example.util.Tabla;
 
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -25,111 +26,161 @@ public class LibroController {
     }
 
     public void registrarLibro() {
-        int isbn;
-        String titulo;
-        String autor;
-        int anio;
-        String categoria;
+        try {
+            System.out.println("Ingrese el isbn del libro: ");
+            int isbn = teclado.nextInt();
+            teclado.nextLine();
 
-        System.out.println("Ingrese el isbn del libro: ");
-        isbn = teclado.nextInt();
-        teclado.nextLine();
+            System.out.println("Ingrese el titulo para el libro: ");
+            String titulo = teclado.nextLine();
 
-        System.out.println("Ingrese el titulo para el libro: ");
-        titulo = teclado.nextLine();
+            System.out.println("Ingrese el autor del libro: ");
+            String autor = teclado.nextLine();
 
-        System.out.println("Ingrese el autor del libro: ");
-        autor = teclado.nextLine();
+            System.out.println("Ingrese el año que se publico el libro: ");
+            int anio = teclado.nextInt();
+            teclado.nextLine();
 
-        System.out.println("Ingrese el año que se publico el libro: ");
-        anio = teclado.nextInt();
-        teclado.nextLine();
+            System.out.println("Ingrese la categoria a la que pertenece el libro: ");
+            String categoria = teclado.nextLine();
 
-        System.out.println("Ingrese la categoria a la que pertenece el libro: ");
-        categoria = teclado.nextLine();
-
-        libroService.registrar(isbn, titulo, autor, anio, categoria);
+            libroService.registrar(isbn, titulo, autor, anio, categoria);
+            System.out.println("Libro registrado: " + isbn + " " + titulo + " " + autor + " " + anio + " " + categoria);
+        } catch (InputMismatchException e) {
+            teclado.nextLine();
+            System.out.println("ISBN y año deben ser números enteros.");
+        } catch (RuntimeException e) {
+            System.out.println(mensajeError(e));
+        }
     }
 
     public void editarLibro() {
-        int isbn;
-        String titulo;
-        String autor;
-        int anio;
-        String categoria;
-        EstadoLibro estadoLibro;
+        try {
+            System.out.println("Ingrese el isbn del libro: ");
+            int isbn = teclado.nextInt();
+            teclado.nextLine();
 
-        System.out.println("Ingrese el isbn del libro: ");
-        isbn = teclado.nextInt();
-        teclado.nextLine();
+            System.out.println("Ingrese el titulo para el libro: ");
+            String titulo = teclado.nextLine();
 
-        System.out.println("Ingrese el titulo para el libro: ");
-        titulo = teclado.nextLine();
+            System.out.println("Ingrese el autor del libro: ");
+            String autor = teclado.nextLine();
 
-        System.out.println("Ingrese el autor del libro: ");
-        autor = teclado.nextLine();
+            System.out.println("Ingrese el año que se publico el libro: ");
+            int anio = teclado.nextInt();
+            teclado.nextLine();
 
-        System.out.println("Ingrese el año que se publico el libro: ");
-        anio = teclado.nextInt();
-        teclado.nextLine();
+            System.out.println("Ingrese la categoria a la que pertenece el libro: ");
+            String categoria = teclado.nextLine();
 
-        System.out.println("Ingrese la categoria a la que pertenece el libro: ");
-        categoria = teclado.nextLine();
+            System.out.println("Ingrese el estado que desea cambiar el libro (DISPONIBLE, PRESTADO): ");
+            EstadoLibro estadoLibro = EstadoLibro.valueOf(teclado.nextLine());
 
-        System.out.println("Ingrese el estado que desea cambiar el libro: ");
-        estadoLibro = EstadoLibro.valueOf(teclado.nextLine());
-
-        libroService.editar(isbn, titulo, autor, anio, categoria, estadoLibro);
+            libroService.editar(isbn, titulo, autor, anio, categoria, estadoLibro);
+            System.out.println("Libro editado: " + isbn + " " + titulo + " " + autor + " " + anio + " " + categoria);
+        } catch (InputMismatchException e) {
+            teclado.nextLine();
+            System.out.println("ISBN y año deben ser números enteros.");
+        } catch (IllegalArgumentException e) {
+            System.out.println("Estado inválido. Use DISPONIBLE o PRESTADO.");
+        } catch (RuntimeException e) {
+            System.out.println(mensajeError(e));
+        }
     }
 
     public void eliminarLibro() {
-        System.out.println("Ingrese el isbn que desea eliminar: ");
-        int isbn = Integer.parseInt(teclado.nextLine());
+        try {
+            System.out.println("Ingrese el isbn que desea eliminar: ");
+            int isbn = Integer.parseInt(teclado.nextLine());
 
-        libroService.eliminar(isbn);
+            libroService.eliminar(isbn);
+            System.out.println("Libro eliminado correctamente.");
+        } catch (NumberFormatException e) {
+            System.out.println("El ISBN debe ser un número entero.");
+        } catch (LibroNoEncontrado e) {
+            System.out.println(e.getMessage());
+        } catch (RuntimeException e) {
+            System.out.println(mensajeError(e));
+        }
     }
 
     public void buscarLibroPorIsbn() {
-        System.out.println("Ingrese el isbn que desea buscar: ");
-        String isbn = teclado.nextLine();
-        Libro libro = libroService.buscarIsbn(Integer.parseInt(isbn));
-        imprimirResultado(libro);
+        try {
+            System.out.println("Ingrese el isbn que desea buscar: ");
+            int isbn = Integer.parseInt(teclado.nextLine());
+            Libro libro = libroService.buscarIsbn(isbn);
+            imprimirResultado(libro);
+        } catch (NumberFormatException e) {
+            System.out.println("El ISBN debe ser un número entero.");
+        } catch (LibroNoEncontrado e) {
+            System.out.println(e.getMessage());
+        } catch (RuntimeException e) {
+            System.out.println(mensajeError(e));
+        }
     }
 
     public void buscarLibroPorAutor() {
-        System.out.println("Ingrese el autor que desea buscar: ");
-        String autor = teclado.nextLine();
-        Libro libro = libroService.buscarAutor(autor);
-        imprimirResultado(libro);
+        try {
+            System.out.println("Ingrese el autor que desea buscar: ");
+            String autor = teclado.nextLine();
+            Libro libro = libroService.buscarAutor(autor);
+            imprimirResultado(libro);
+        } catch (LibroNoEncontrado e) {
+            System.out.println(e.getMessage());
+        } catch (RuntimeException e) {
+            System.out.println(mensajeError(e));
+        }
     }
 
     public void buscarLibroPorCategoria() {
-        System.out.println("Ingrese la categoria que desea buscar: ");
-        String categoria = teclado.nextLine();
-        Libro libro = libroService.buscarCategoria(categoria);
-        imprimirResultado(libro);
+        try {
+            System.out.println("Ingrese la categoria que desea buscar: ");
+            String categoria = teclado.nextLine();
+            Libro libro = libroService.buscarCategoria(categoria);
+            imprimirResultado(libro);
+        } catch (LibroNoEncontrado e) {
+            System.out.println(e.getMessage());
+        } catch (RuntimeException e) {
+            System.out.println(mensajeError(e));
+        }
     }
 
     public void buscarLibroPorTitulo() {
-        System.out.println("Ingrese el titulo que desea buscar: ");
-        String titulo = teclado.nextLine();
-        Libro libro = libroService.buscarTitulo(titulo);
-        imprimirResultado(libro);
+        try {
+            System.out.println("Ingrese el titulo que desea buscar: ");
+            String titulo = teclado.nextLine();
+            Libro libro = libroService.buscarTitulo(titulo);
+            imprimirResultado(libro);
+        } catch (LibroNoEncontrado e) {
+            System.out.println(e.getMessage());
+        } catch (RuntimeException e) {
+            System.out.println(mensajeError(e));
+        }
     }
 
     public List<Libro> obtenerLibrosDisponibles() {
-        List<Libro> libros = libroService.obtenerDisponibles();
-        Tabla.imprimirLibros(libros);
-
-        return libros;
+        try {
+            List<Libro> libros = libroService.obtenerDisponibles();
+            Tabla.imprimirLibros(libros);
+            return libros;
+        } catch (RuntimeException e) {
+            System.out.println(mensajeError(e));
+            return List.of();
+        }
     }
 
     public List<Libro> obtenerLibrosPrestados() {
-        List<Libro> libros = libroService.obtenerPrestados();
-        Tabla.imprimirLibros(libros);
-
-        return libros;
+        try {
+            List<Libro> libros = libroService.obtenerPrestados();
+            Tabla.imprimirLibros(libros);
+            return libros;
+        } catch (RuntimeException e) {
+            System.out.println(mensajeError(e));
+            return List.of();
+        }
     }
 
-
+    private String mensajeError(RuntimeException e) {
+        return e.getMessage() != null ? e.getMessage() : "Ocurrió un error inesperado.";
+    }
 }

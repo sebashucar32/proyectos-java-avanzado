@@ -13,7 +13,6 @@ public class Main {
         if (args.length > 0 && args[0].equalsIgnoreCase("--gui")) {
             AppGui.lanzarConfiguracionJavaFx(args);
         } else {
-            //AppGui.lanzarConfiguracionJavaFx(args);
             MainMenu menu = AppConfig.crearMainMenu();
             menu.iniciar();
         }

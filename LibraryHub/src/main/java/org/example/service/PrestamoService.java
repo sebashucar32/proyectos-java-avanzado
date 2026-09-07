@@ -2,9 +2,7 @@ package org.example.service;
 
 import org.example.enums.EstadoLibro;
 import org.example.enums.TipoUsuario;
-import org.example.exception.LimitePrestamosException;
-import org.example.exception.PrestamoNoEncontrado;
-import org.example.exception.UsuarioNoEncontrado;
+import org.example.exception.*;
 import org.example.models.Libro;
 import org.example.models.Prestamo;
 import org.example.models.Usuario;
@@ -46,7 +44,8 @@ public class PrestamoService {
     public Libro calcularLibro(String libro) {
         return this.libroRepository.listar().stream()
             .filter(l -> l.getTitulo().equalsIgnoreCase(libro))
-            .findFirst().orElse(null);
+            .findFirst()
+            .orElseThrow(() -> new LibroNoEncontrado("Libro no encontrado no esta registrado"));
     }
 
     private List<Prestamo> buscarPrestamosPorNombreUsuario(String nombreUsuario) {
@@ -77,7 +76,7 @@ public class PrestamoService {
         boolean noDisponible = libro.getEstado().equals(EstadoLibro.PRESTADO);
 
         if (noDisponible) {
-            throw new LimitePrestamosException(
+            throw new LibroNoDisponibleException(
                 "No se pueden prestar libros que ya se encuentren en prestamo"
             );
         }
@@ -107,8 +106,6 @@ public class PrestamoService {
     }
 
     public Prestamo buscarPrestamoPorUsuarioYLibro(Usuario usuario, Libro libro) {
-        List<Prestamo> prestamos = prestamoRepository.listar();
-
         return prestamoRepository.listar().stream()
             .filter(u -> Objects.equals(u.getUsuario().getId(), usuario.getId()))
             .filter(l -> Objects.equals(l.getLibro().getIsbn(), libro.getIsbn()))
@@ -156,7 +153,7 @@ public class PrestamoService {
             .filter(prestamo -> prestamo.getFechaDevolucion() == null).toList();
     }
 
-    public List<Prestamo> consultarhistorial() {
+    public List<Prestamo> consultarHistorial() {
         return prestamoRepository.listar();
     }
 

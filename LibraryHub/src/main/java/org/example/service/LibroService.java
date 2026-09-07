@@ -1,6 +1,7 @@
 package org.example.service;
 
 import org.example.enums.EstadoLibro;
+import org.example.exception.LibroNoEncontrado;
 import org.example.models.Libro;
 import org.example.repository.LibroRepository;
 
@@ -23,7 +24,6 @@ public class LibroService {
         nuevoLibro.setEstado(EstadoLibro.DISPONIBLE);
 
         libroRepository.registrar(nuevoLibro);
-        System.out.println(isbn + " " + titulo + " " + autor + " " + anio + " " + categoria);
     }
 
     public void editar(int isbn, String titulo, String autor, int anio, String categoria, EstadoLibro estadoLibro) {
@@ -36,14 +36,13 @@ public class LibroService {
         libroEditado.setEstado(estadoLibro);
 
         libroRepository.editar(isbn, libroEditado);
-        System.out.println(isbn + " " + titulo + " " + autor + " " + anio + " " + categoria);
     }
 
     public void eliminar(int isbn) {
         Libro libro = libroRepository.listar().stream()
             .filter(l -> l.getIsbn() == isbn)
             .findFirst()
-            .orElse(null);
+            .orElseThrow(() -> new LibroNoEncontrado("Libro no encontrado no esta registrado"));
 
         libroRepository.eliminar(libro, Libro::getIsbn);
     }
@@ -52,28 +51,28 @@ public class LibroService {
         return libroRepository.listar().stream()
             .filter(libro -> libro.getIsbn().equals(isbn))
             .findFirst()
-            .orElse(null);
+            .orElseThrow(() -> new LibroNoEncontrado("Libro no encontrado con ISBN: " + isbn));
     }
 
     public Libro buscarAutor(String autor) {
         return libroRepository.listar().stream()
             .filter(libro -> libro.getAutor().equals(autor))
             .findFirst()
-            .orElse(null);
+            .orElseThrow(() -> new LibroNoEncontrado("Libro no encontrado con autor: " + autor));
     }
 
     public Libro buscarCategoria(String categoria) {
         return libroRepository.listar().stream()
             .filter(libro -> libro.getCategoria().equals(categoria))
             .findFirst()
-            .orElse(null);
+            .orElseThrow(() -> new LibroNoEncontrado("Libro no encontrado con categoría: " + categoria));
     }
 
     public Libro buscarTitulo(String titulo) {
         return libroRepository.listar().stream()
             .filter(libro -> libro.getTitulo().equals(titulo))
             .findFirst()
-            .orElse(null);
+            .orElseThrow(() -> new LibroNoEncontrado("Libro no encontrado con título: " + titulo));
     }
 
     public List<Libro> obtenerDisponibles() {

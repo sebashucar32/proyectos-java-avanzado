@@ -1,6 +1,7 @@
 package org.example.service;
 
 import org.example.enums.TipoUsuario;
+import org.example.exception.UsuarioNoEncontrado;
 import org.example.models.Usuario;
 import org.example.repository.UsuarioRepository;
 
@@ -21,7 +22,6 @@ public class UsuarioService {
         nuevoUsuario.setTipoUsuario(tipoUsuario);
 
         usuarioRepository.registrar(nuevoUsuario);
-        System.out.println("Libro creado con id: " + id + " y con nombre " + nombre);
     }
 
     public void editar(int id, String nombre, TipoUsuario tipoUsuario) {
@@ -38,7 +38,7 @@ public class UsuarioService {
         Usuario usuario = usuarioRepository.listar().stream()
             .filter(u -> u.getId() == id)
             .findFirst()
-            .orElse(null);
+            .orElseThrow(() -> new UsuarioNoEncontrado("Usuario no encontrado: " + id));
 
         usuarioRepository.eliminar(usuario, Usuario::getId);
     }

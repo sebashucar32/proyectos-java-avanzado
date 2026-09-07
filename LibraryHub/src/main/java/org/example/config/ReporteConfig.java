@@ -6,7 +6,6 @@ import org.example.menu.ReporteMenu;
 import org.example.repository.*;
 import org.example.service.LibroService;
 import org.example.service.PrestamoService;
-import org.example.service.UsuarioService;
 import org.example.util.JsonFileManager;
 
 import java.util.Scanner;
