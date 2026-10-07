@@ -9,3 +9,84 @@ Hashing
 por ejemplo 12 datos entonces son 12 buckets lo que existe
 - colisión: La colisión es cuando se trata de meter mas de 2 datos en un solo bucket, esto se
 puede solucionar con una lista enlazada
+
+PROYECTO 2
+FASTCACHE
+MOTOR DE CACHÉ
+
+Nivel:
+Colecciones y estructuras de datos.
+
+Tipo:
+Aplicación Java en memoria.
+
+CONTEXTO
+
+Una empresa necesita desarrollar su propio motor de caché para acelerar aplicaciones internas.
+
+No se permite utilizar librerías externas de caché.
+
+OBJETIVO
+
+Crear una caché genérica capaz de almacenar:
+
+Clave -> Valor
+
+FUNCIONES BÁSICAS
+
+Implementar:
+
+Insertar.
+Obtener.
+Actualizar.
+Eliminar.
+Comprobar existencia.
+Obtener tamaño.
+Vaciar caché.
+
+LRU
+
+Implementar una política:
+
+Least Recently Used.
+
+Cuando la caché alcance su capacidad máxima debe eliminar el elemento utilizado menos recientemente.
+
+LFU
+
+Implementar:
+
+Least Frequently Used.
+
+Debe eliminar el elemento utilizado con menor frecuencia.
+
+FIFO
+
+Implementar:
+
+First In First Out.
+
+Debe eliminar primero el elemento que entró primero.
+
+TTL
+
+Cada elemento puede tener:
+
+Time To Live.
+
+Cuando expire:
+
+El elemento deja de ser válido.
+No debe devolverse al usuario.
+
+ESTADÍSTICAS
+
+Registrar:
+
+Hits.
+Misses.
+Hit ratio.
+Número de elementos.
+Tiempo promedio de acceso.
+Elementos expulsados.
+Elementos expirados.

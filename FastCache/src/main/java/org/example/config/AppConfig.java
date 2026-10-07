@@ -16,10 +16,10 @@ public class AppConfig {
     public static MainMenu crearMainMenu() {
         Scanner teclado = new Scanner(System.in);
 
-        //PoliticaExpulsion politicaExpulsion = new FifoPolicy();
-        //PoliticaExpulsion politicaExpulsion = new LruPolicy();
-        PoliticaExpulsion politicaExpulsion = new LfuPolicy();
-        CacheService cacheService = new CacheService(politicaExpulsion);
+        //PoliticaExpulsion<String> politicaExpulsion = new FifoPolicy<>();
+        //PoliticaExpulsion<String> politicaExpulsion = new LruPolicy<>();
+        PoliticaExpulsion<String> politicaExpulsion = new LfuPolicy<>();
+        CacheService<String, String> cacheService = new CacheService<>(politicaExpulsion);
         CacheController cacheController = new CacheController(teclado, cacheService);
 
         return new MainMenu(teclado, cacheController);

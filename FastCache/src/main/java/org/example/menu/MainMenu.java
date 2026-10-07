@@ -29,7 +29,7 @@ public class MainMenu {
                 case 5 -> cacheController.verificarExistenciaCache();
                 case 6 -> cacheController.tamanioElementosCache();
                 case 7 -> cacheController.vaciarElementosCache();
-                case 8 -> System.out.println("Estadistica de los elementos");
+                case 8 -> cacheController.estadisticas();
                 case 9 -> salir = true;
                 default -> System.out.println("No existe la opción marcada");
             }
